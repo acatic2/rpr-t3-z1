@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.tutorijal03;
 
 import java.util.Objects;
 
-public class MobilniBroj implements  TelefonskiBroj {
+public class MobilniBroj extends   TelefonskiBroj {
     int mobilnaMreza;
     String broj;
 
@@ -12,7 +12,8 @@ public class MobilniBroj implements  TelefonskiBroj {
     }
     @Override
     public  String ispisi(){
-        return "0" + mobilnaMreza + "\\" + broj;
+        String s=new String("0" + mobilnaMreza + "/" + broj);
+        return s;
     }
 
     @Override

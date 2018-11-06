@@ -1,34 +1,57 @@
 package ba.unsa.etf.rpr.tutorijal03;
 
-import java.util.Arrays;
-import java.util.Objects;
+public class FiksniBroj extends TelefonskiBroj {
 
-public class FiksniBroj implements TelefonskiBroj {
+    public enum Grad {
+        BUGOJNO("030"), BUSOVACA("030"), DOBRETICI("030"), DONJIVAKUF("030"), FOJNICA("030"), GORNJIVAKUF("030"),
+        JAJCE("030"), KISELJAK("030"), KREŠEVO("030"), NOVITRAVNKI("030"), TRAVNIK("030"), VITEZ("030"),
+        ODŽAK("031"), SARAJEVO("033"), ZENICA("032"), LIVNO("034"), TUZLA("035"), MOSTAR("036"), BIHAC("037"),
+        GORAŽDE("038");
 
-    public enum Grad {TRAVNIK,ORASJE,ZENICA,SARAJEVO,LIVNO,TUZLA,MOSTAR,BIHAC,GORAZDE,SIROKIBRIJEG,BRCKO};
-    protected String broj;
-    private String pozivni;
-    protected Integer[] brojevi={30,31,32,33,34,35,36,37,38,39,49};
+        private String poziv;
+
+        Grad(String pozivni) {
+            this.poziv = pozivni;
+        }
+        public String getPozivni() {
+            return poziv;
+        }
+    }
+    private Grad grad;
+    private String broj = "";
 
     public FiksniBroj(Grad grad, String broj) {
-        String tmp=grad.name();
-        int brojac=0;
-        for(Grad i: Grad.values()){
-            if(tmp==i.name()) break;
-            brojac++;
-        }
+        this.grad = grad;
         this.broj = broj;
-        this.pozivni=brojevi[brojac].toString();
+    }
+
+    public Grad getGrad() {
+        return grad;
+    }
+    public void setGrad(Grad grad) {
+        this.grad = grad;
+    }
+    public String getBroj() {
+        return broj;
+    }
+    public void setBroj(String broj) {
+        this.broj = broj;
     }
     @Override
-    public String ispisi(){
-        return  ("0" + pozivni + "\\" + broj);
+    public String ispisi() {
+        return getGrad().getPozivni() + "/" + broj;
     }
     @Override
     public int hashCode() {
-        int result = Objects.hash(broj, pozivni);
-        result = 31 * result + Arrays.hashCode(brojevi);
-        return result;
+        return broj.hashCode();
+    }
+    @Override
+    public boolean equals (Object obj) {
+        FiksniBroj broj = (FiksniBroj) obj;
+        return broj.equals(broj.broj);
+    }
+    public int compareTo(Object obj) {
+        FiksniBroj novi = (FiksniBroj) obj;
+        return ispisi().compareTo(novi.ispisi());
     }
 }
-
